@@ -1,1 +1,1 @@
-<?php
+<div class="importer-restricted">Access is allowed only from control panel. Current timestamp is <?php echo $timestamp; ?>.</div>
