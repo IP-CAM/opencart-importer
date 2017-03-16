@@ -9,7 +9,7 @@ class ModelExtensionImporter extends Model
         $preprocessed['name'] = $product_from_xml->Наименование;
         $preprocessed['id'] = $product_from_xml->Ид;
         $preprocessed['sku'] = $product_from_xml->Артикул;
-        return $preprocessed; // Макароны по флотски
+        return $preprocessed;
     }
     public function loadXML($file){
         $this->load->model('catalog/product');
