@@ -3,6 +3,7 @@ class ModelExtensionImporter extends Model
 {
     public function addOrUpdate($data){
         // Функция добавления и обновления товара
+        $this->load->model('catalog/product');
     }
     public function preprocessProductFromXML($product_from_xml){
         // Предварительная обработка XML обьекта
@@ -12,7 +13,6 @@ class ModelExtensionImporter extends Model
         return $preprocessed;
     }
     public function loadXML($file){
-        $this->load->model('catalog/product');
         $xml =  simplexml_load_file($file);
 
         // КоммерческаяИнформация->Каталог->Товары
