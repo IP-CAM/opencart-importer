@@ -8,7 +8,6 @@ class ControllerExtensionModuleimporter extends Controller {
         echo $this->load->view('extension/module/importer.tpl', $data);
     }
     public function xml(){
-        $this->load->model('catalog/product');
         $this->load->model('extension/importer');
         $products = $this->model_extension_importer->loadXML(__DIR__ . '/../../../../xml/test.xml');
         var_dump($products);
