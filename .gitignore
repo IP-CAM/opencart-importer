@@ -1,6 +1,9 @@
 config.php
 admin/config.php
+
 image/cache
+system/storage/cache/*
+
 xml
 install
 1cids
