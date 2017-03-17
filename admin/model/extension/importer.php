@@ -1,7 +1,7 @@
 <?php
 class ModelExtensionImporter extends Model
 {
-    public function addOrUpdate($data){
+    public function addOrUpdateProduct($data){
         // Функция добавления и обновления товара
         $this->load->model('catalog/product');
     }
@@ -12,12 +12,23 @@ class ModelExtensionImporter extends Model
         $preprocessed['sku'] = $product_from_xml->Артикул;
         return $preprocessed;
     }
+
+    public function addOrUpdateCategory($data)
+    {
+        // Функция добавления и обновления категории
+    }
+    public function preprocessCategoryFromXML($category_from_xml){
+        // Предварительная обработка XML обьекта
+        $preprocessed = array();
+        return $preprocessed;
+    }
+
     public function loadXML($file){
         $xml =  simplexml_load_file($file);
 
         // КоммерческаяИнформация->Каталог->Товары
         foreach ($xml->Каталог->Товары as $product_from_xml){
-            $this->addOrUpdate($this->preprocessProductFromXML($product_from_xml));
+            $this->addOrUpdateProduct($this->preprocessProductFromXML($product_from_xml));
         }
 
     }
