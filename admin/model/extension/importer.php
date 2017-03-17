@@ -1,15 +1,25 @@
 <?php
 class ModelExtensionImporter extends Model
 {
+    public function loadXML($file, $lang_code = 'ru-ru'){
+        $xml =  simplexml_load_file($file);
+        $language_id = $this->getLanguageIDByCode('ru-ru');
+
+        // КоммерческаяИнформация->Каталог->Товары
+        foreach ($xml->Каталог->Товары as $product_from_xml){
+            $this->addOrUpdateProduct($this->preprocessProductFromXML($product_from_xml, $language_id));
+        }
+    }
+
     public function addOrUpdateProduct($data){
         // Функция добавления и обновления товара
         $this->load->model('catalog/product');
         var_dump($data);
     }
-    public function preprocessProductFromXML($product_from_xml){
+    public function preprocessProductFromXML($product_from_xml, $language_id){
         // Предварительная обработка XML обьекта
-        $preprocessed['name'] = $product_from_xml->Наименование;
-        $preprocessed['id'] = $product_from_xml->Ид;
+        $preprocessed['product_description'][$language_id]['name'] = $product_from_xml->Наименование;
+        // $preprocessed['id'] = $product_from_xml->Ид;
         $preprocessed['sku'] = $product_from_xml->Артикул;
         return $preprocessed;
     }
@@ -17,9 +27,11 @@ class ModelExtensionImporter extends Model
     public function addOrUpdateCategory($data)
     {
         // Функция добавления и обновления категории
+        $this->load->model('catalog/category');
     }
-    public function preprocessCategoryFromXML($category_from_xml){
+    public function preprocessCategoryFromXML($category_from_xml, $language_id){
         // Предварительная обработка XML обьекта
+
         $preprocessed = array();
         return $preprocessed;
     }
@@ -31,16 +43,5 @@ class ModelExtensionImporter extends Model
             $data = $query->row;
             return $data['language_id'];
         }
-    }
-
-    public function loadXML($file, $lang_code = 'ru-ru'){
-        $xml =  simplexml_load_file($file);
-        $language_id = $this->getLanguageIDByCode('ru-ru');
-
-        // КоммерческаяИнформация->Каталог->Товары
-        foreach ($xml->Каталог->Товары as $product_from_xml){
-            $this->addOrUpdateProduct($this->preprocessProductFromXML($product_from_xml));
-        }
-
     }
 }
