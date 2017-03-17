@@ -9,6 +9,6 @@ class ControllerExtensionModuleimporter extends Controller {
     }
     public function xml(){
         $this->load->model('extension/importer');
-        $this->model_extension_importer->loadXML(__DIR__ . '/../../../../xml/test.xml');
+        $this->model_extension_importer->loadXML(__DIR__ . '/../../../../xml/test.xml', 'ru-ru');
     }
 }
